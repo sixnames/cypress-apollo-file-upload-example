@@ -1,0 +1,65 @@
+.Title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  flex-shrink: 0;
+}
+
+.Small {
+  margin-bottom: 1rem;
+}
+
+.Normal {
+  margin-bottom: 1.25rem;
+}
+
+.Big {
+  margin-bottom: 1.875rem;
+}
+
+.Light {
+  height: 60px;
+  align-items: center;
+  background-color: var(--primaryBackground);
+  box-shadow: var(--shadow);
+  padding-right: var(--innerBlockHorizontalPadding);
+  padding-left: var(--innerBlockHorizontalPadding);
+}
+
+.Low {
+  margin-bottom: 0;
+}
+
+.Big .TitleText {
+  font-size: 2.25rem;
+}
+
+.Normal .TitleText {
+  font-size: 2rem;
+}
+
+.Small .TitleText {
+  font-size: 1.5rem;
+}
+
+.Subtitle {
+  color: var(--midGray);
+}
+
+@media only screen and (max-width: 1024px) {
+  .Light {
+    height: 40px;
+  }
+
+  .Big .TitleText {
+    font-size: 2rem;
+  }
+
+  .Normal .TitleText {
+    font-size: 1.5rem;
+  }
+
+  .Small .TitleText {
+    font-size: 1.25rem;
+  }
+}

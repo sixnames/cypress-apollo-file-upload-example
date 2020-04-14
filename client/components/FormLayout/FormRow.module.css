@@ -1,0 +1,22 @@
+.Row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.Row > div {
+  width: calc(50% - 7px);
+  flex-grow: 0;
+}
+
+@media only screen and (max-width: 1024px) {
+  .Row > div {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .Row > div {
+    width: calc(50% - 10px);
+  }
+}

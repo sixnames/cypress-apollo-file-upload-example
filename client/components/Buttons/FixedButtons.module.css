@@ -1,0 +1,39 @@
+.Frame {
+  bottom: 0;
+  z-index: 90;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: var(--innerBlockHorizontalPadding);
+  padding-left: var(--innerBlockHorizontalPadding);
+  box-shadow: var(--shadow);
+  background-color: var(--primaryBackground);
+}
+
+.Fixed {
+  position: fixed;
+  left: 60px;
+  width: calc(100vw - 60px);
+}
+
+.Absolute {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+.Frame button {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.Frame button:not(:first-child) {
+  margin-left: 1rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  .Fixed {
+    left: 0;
+    width: 100vw;
+  }
+}

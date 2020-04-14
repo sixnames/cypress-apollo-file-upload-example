@@ -1,0 +1,25 @@
+.Column {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.Column > div {
+  flex-shrink: 0;
+  width: calc(50% - 10px);
+}
+
+.Column > div[class*="Wide"] {
+  width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  .Column > div {
+    width: 100%;
+  }
+}
+
+.AlignTop {
+  align-items: flex-start;
+}

@@ -1,0 +1,57 @@
+.Input {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: var(--inputPaddingHorizontal);
+  padding-right: var(--inputPaddingHorizontal);
+  margin: 0;
+  font-size: var(--inputFontSize);
+  color: var(--inputTextColor);
+  border: 1px solid var(--borderColor);
+  background-color: var(--inputBackground);
+  outline: none;
+  box-shadow: 0 0 0 transparent;
+  border-radius: 4px;
+  transition: all 0.2s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.Normal {
+  height: var(--inputHeightNormal);
+}
+
+.Big {
+  height: var(--inputHeightBig);
+}
+
+.Small {
+  height: var(--inputHeightSmall);
+  font-size: var(--inputFontSizeSmall);
+}
+
+.Input[type='number']::-webkit-outer-spin-button,
+.Input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.Error {
+  color: var(--red);
+  border: 1px solid var(--red);
+}
+
+.Touched {
+  border-color: var(--blue);
+}
+
+.Input:disabled {
+  background-color: rgba(var(--inputBackground), 0.6);
+  cursor: default;
+}
+
+.Input:read-only {
+  cursor: default;
+}

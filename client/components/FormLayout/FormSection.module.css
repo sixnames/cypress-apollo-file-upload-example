@@ -1,0 +1,51 @@
+.Section {
+  margin-bottom: 3rem;
+}
+
+.Low {
+  margin-bottom: 0;
+}
+
+.Title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.125rem;
+  font-size: 1.75rem;
+  text-transform: uppercase;
+}
+
+.Title:before {
+  position: absolute;
+  content: '';
+  top: 50%;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: var(--borderColor);
+}
+
+.TitleRed {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.TitleRed:before {
+  display: none;
+}
+
+.TitleRed .TitleName {
+  background-color: transparent;
+}
+
+.TitleName {
+  position: relative;
+  z-index: 2;
+  max-width: calc(100% - 2rem);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: var(--white);
+  text-align: center;
+}

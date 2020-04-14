@@ -1,0 +1,21 @@
+.Block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.Block > div {
+  flex-shrink: 0;
+  width: calc(50% - 10px);
+}
+
+.Block > div[class*="Wide"] {
+  width: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+  .Block > div {
+    width: 100%;
+  }
+}

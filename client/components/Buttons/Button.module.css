@@ -1,0 +1,167 @@
+.Button {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 2px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+  box-shadow: none;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.Button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}
+
+.Button svg {
+  position: relative;
+  top: 1px;
+  flex-shrink: 0;
+  display: block;
+  margin-right: 5px;
+}
+
+.Button svg.IconNoGap {
+  margin: 0;
+}
+
+.NoChildren {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.Circle {
+  border-radius: 50%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.Circle svg {
+  margin: 0;
+}
+
+.Small {
+  height: 1.5rem;
+  border-width: 1px;
+  font-size: 0.875rem;
+}
+
+.Small svg {
+  top: 1px;
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.Circle.Small {
+  width: 1.5rem;
+}
+
+.Normal {
+  height: 2rem;
+}
+
+.Normal svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.Circle.Normal {
+  width: 2rem;
+}
+
+.Big {
+  height: 3rem;
+}
+
+.Big svg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.Circle.Big {
+  width: 3rem;
+}
+
+.Button [class*='excel-icon'] {
+  top: 1px;
+  fill: var(--excel);
+}
+
+.Button:hover [class*='excel-icon'] {
+  fill: var(--white);
+}
+
+.primary {
+  color: var(--white);
+  border: 2px solid var(--theme);
+  background-color: var(--theme);
+}
+
+.primary svg {
+  fill: var(--white);
+}
+
+.primary:hover {
+  color: var(--theme);
+  background-color: var(--white);
+}
+
+.primary:hover svg {
+  fill: var(--theme);
+}
+
+.secondary {
+  color: var(--theme);
+  border: 2px solid var(--theme);
+  background-color: var(--buttonLightBackground);
+}
+
+.secondary svg {
+  fill: var(--theme);
+}
+
+.secondary:hover {
+  color: var(--white);
+  background-color: var(--theme);
+}
+
+.secondary:hover svg {
+  fill: var(--white);
+}
+
+.gray {
+  color: var(--midGray);
+  border: 2px solid var(--midGray);
+  background-color: var(--buttonLightBackground);
+}
+
+.gray svg {
+  fill: var(--midGray);
+}
+
+.gray:hover {
+  color: var(--buttonLightBackground);
+  background-color: var(--midGray);
+}
+
+.gray:hover svg {
+  fill: var(--buttonLightBackground);
+}
+
+.no-frame {
+  border: none;
+  background-color: transparent;
+}
