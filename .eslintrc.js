@@ -3,7 +3,6 @@ module.exports = {
     browser: true,
     es6: true,
     node: true,
-    'jest/globals': true,
     'cypress/globals': true,
   },
   extends: [
@@ -11,7 +10,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'plugin:jest/recommended',
     'plugin:prettier/recommended',
     'prettier/@typescript-eslint',
     'prettier/react',
@@ -50,6 +48,5 @@ module.exports = {
     'cypress/no-unnecessary-waiting': 'error',
     'cypress/assertion-before-screenshot': 'warn',
     'cypress/no-force': 'warn',
-    'jest/expect-expect': 'off',
   },
 };

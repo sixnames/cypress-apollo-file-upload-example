@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import SiteLayout from '../client/layout/SiteLayout/SiteLayout';
 import Inner from '../client/components/Inner/Inner';
-import { Formik, Form } from 'formik';
+import { Form, Formik } from 'formik';
 import { useCreateUserMutation } from '../client/generated/apolloComponents';
 import Title from '../client/components/Title/Title';
 import FormikInput from '../client/components/FormElements/Input/FormikInput';
@@ -11,6 +11,15 @@ import ButtonPrimary from '../client/components/Buttons/ButtonPrimary';
 
 const Home: NextPage = () => {
   const [crateUserMutation, { data, loading, error }] = useCreateUserMutation();
+  const [assets, setAssets] = useState<any>(null);
+
+  useEffect(() => {
+    if (data && data.createUser && data.createUser.user) {
+      setAssets(data.createUser.user.assets.data);
+    }
+  }, [data]);
+
+  console.log(assets);
 
   return (
     <SiteLayout>

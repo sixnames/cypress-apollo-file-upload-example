@@ -24,7 +24,8 @@ const user = gql`
     id: ID!
     itemId: Int!
     name: String!
-    images: [Image!]!
+    assets: Assets!
+    mainImage(width: Int, quality: Int): Image
     createdAt: DateTime!
     updatedAt: DateTime!
   }

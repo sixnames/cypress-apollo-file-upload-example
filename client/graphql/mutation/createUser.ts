@@ -8,9 +8,15 @@ export const CREATE_USER_MUTATION = gql`
       user {
         id
         name
-        images {
-          regular
-          retina
+        assets {
+          data {
+            format
+            index
+            publicId
+            url
+            width
+            height
+          }
         }
       }
     }

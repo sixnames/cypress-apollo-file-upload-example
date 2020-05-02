@@ -33,8 +33,23 @@ const root = gql`
   }
 
   type Image {
-    regular: String!
-    retina: String!
+    url: String!
+    width: Int!
+    alt: String!
+    title: String!
+  }
+
+  type AssetItem {
+    publicId: String!
+    format: String!
+    url: String!
+    index: Int!
+    width: Int!
+    height: Int!
+  }
+
+  type Assets {
+    data: [AssetItem!]!
   }
 
   type Query {

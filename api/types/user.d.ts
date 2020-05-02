@@ -1,15 +1,11 @@
 import { MutationPayloadInterface } from './common';
 import { FileUpload } from 'graphql-upload';
 
-export interface ImageInterface {
-  regular: string;
-  retina: string;
-}
-
 export interface UserInterface {
   id: string;
   name: string;
-  images: ImageInterface[];
+  assets?: Assets;
+  mainImage?: ImageInterface;
 }
 
 export interface CreateUserInterface {

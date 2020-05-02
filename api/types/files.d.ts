@@ -1,11 +1,29 @@
 import { FileUpload } from 'graphql-upload';
 import { ReadStream } from 'fs';
 
-export interface StoreUploadsInterface {
-  files: FileUpload[];
-  fileName: string;
-  toPath?: string;
-  urlPath?: string;
+export interface ImageInterface {
+  url: string;
+  width: number;
+  alt: string;
+  title: string;
+}
+
+export interface ImageArgsInterface {
+  width?: number;
+  quality?: number | 'auto';
+}
+
+export interface AssetInterface {
+  publicId: string;
+  format: string;
+  url: string;
+  index: number;
+  width: number;
+  height: number;
+}
+
+export interface Assets {
+  data: AssetInterface[];
 }
 
 export interface StoreImageInterface {
