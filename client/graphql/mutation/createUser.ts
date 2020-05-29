@@ -8,16 +8,7 @@ export const CREATE_USER_MUTATION = gql`
       user {
         id
         name
-        assets {
-          data {
-            format
-            index
-            publicId
-            url
-            width
-            height
-          }
-        }
+        assets
       }
     }
   }

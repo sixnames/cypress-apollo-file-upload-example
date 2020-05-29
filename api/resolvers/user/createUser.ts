@@ -6,7 +6,7 @@ async function createUser(
   { input }: CreateUserInterface,
 ): Promise<CreateUserPayloadInterface> {
   try {
-    const images = await storeUploads({ fileName: 'file', files: input.images });
+    const images = await storeUploads({ slug: 'file', files: input.images });
 
     return {
       success: true,
@@ -14,9 +14,7 @@ async function createUser(
       user: {
         id: 'new user',
         name: input.name,
-        assets: {
-          data: images,
-        },
+        assets: images,
       },
     };
   } catch (error) {

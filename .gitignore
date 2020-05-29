@@ -14,6 +14,7 @@ lerna-debug.log*
 cardName-0.jpg
 cardName-2.jpg
 cardName-3.jpg
+assets
 
 # production
 /build

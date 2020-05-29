@@ -15,11 +15,11 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     if (data && data.createUser && data.createUser.user) {
-      setAssets(data.createUser.user.assets.data);
+      setAssets(data.createUser.user.assets);
     }
   }, [data]);
 
-  console.log(assets);
+  console.log('assets', assets);
 
   return (
     <SiteLayout>
@@ -51,8 +51,18 @@ const Home: NextPage = () => {
 
         <div style={{ marginTop: '2rem' }}>
           {loading && 'Loading...'}
-          {error && `Mutation error ${JSON.stringify(error)}`}
-          {data && <div data-cy={`user-success`}>Response ${JSON.stringify(data)}</div>}
+          {error && (
+            <>
+              <h2>Mutation error</h2>
+              <pre>{JSON.stringify(error, null, 4)}</pre>
+            </>
+          )}
+          {data && (
+            <div data-cy={`user-success`}>
+              <h2>Response</h2>
+              <pre>{JSON.stringify(data, null, 4)}</pre>
+            </div>
+          )}
         </div>
       </Inner>
     </SiteLayout>

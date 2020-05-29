@@ -106,7 +106,7 @@ export type User = {
   id: Scalars['ID'],
   itemId: Scalars['Int'],
   name: Scalars['String'],
-  assets: Assets,
+  assets: Array<Scalars['String']>,
   mainImage?: Maybe<Image>,
   createdAt: Scalars['DateTime'],
   updatedAt: Scalars['DateTime'],
@@ -130,14 +130,7 @@ export type CreateUserMutation = (
     & Pick<CreateUserPayload, 'success' | 'message'>
     & { user: Maybe<(
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'name'>
-      & { assets: (
-        { __typename?: 'Assets' }
-        & { data: Array<(
-          { __typename?: 'AssetItem' }
-          & Pick<AssetItem, 'format' | 'index' | 'publicId' | 'url' | 'width' | 'height'>
-        )> }
-      ) }
+      & Pick<User, 'id' | 'name' | 'assets'>
     )> }
   ) }
 );
@@ -151,16 +144,7 @@ export const CreateUserDocument = gql`
     user {
       id
       name
-      assets {
-        data {
-          format
-          index
-          publicId
-          url
-          width
-          height
-        }
-      }
+      assets
     }
   }
 }

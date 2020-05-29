@@ -4,8 +4,8 @@ import { FileUpload } from 'graphql-upload';
 export interface UserInterface {
   id: string;
   name: string;
-  assets?: Assets;
-  mainImage?: ImageInterface;
+  assets?: string[];
+  mainImage?: string;
 }
 
 export interface CreateUserInterface {

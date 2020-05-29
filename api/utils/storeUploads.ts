@@ -1,64 +1,78 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { FileUpload } from 'graphql-upload';
-import { AssetInterface } from '../types';
-import cloudinary from 'cloudinary';
+import sharp from 'sharp';
+import fs, { ReadStream } from 'fs';
+import mkdirp from 'mkdirp';
 
 export interface StoreUploadsInterface {
   files: FileUpload[];
-  fileName: string;
+  slug: string;
 }
 
-const storeUploads = async ({
-  files,
-  fileName,
-}: StoreUploadsInterface): Promise<AssetInterface[]> => {
+export interface GetBufferFromFileStreamInterface {
+  stream: ReadStream;
+  callback: (buffer: Buffer) => void;
+  reject: (reason: any) => void;
+}
+
+function getBufferFromFileStream({ stream, callback, reject }: GetBufferFromFileStreamInterface) {
+  // Store file data chunks in this array
+  const chunks: any[] = [];
+  // We can use this variable to store the final data
+  let fileBuffer;
+
+  // An error occurred with the stream
+  stream.once('error', (err) => {
+    reject(err);
+  });
+
+  // File is done being read
+  stream.once('end', () => {
+    // create the final data Buffer from data chunks;
+    fileBuffer = Buffer.concat(chunks);
+    callback(fileBuffer);
+  });
+
+  // Data is flushed from fileStream in chunks,
+  // this callback will be executed for each chunk
+  stream.on('data', (chunk) => {
+    chunks.push(chunk); // push data chunk to array
+  });
+}
+
+const storeUploads = async ({ files, slug }: StoreUploadsInterface): Promise<string[]> => {
+  const filesPath = `./assets/${slug}`;
+  const exists = fs.existsSync(filesPath);
+  if (!exists) {
+    await mkdirp(filesPath);
+  }
+
   return await Promise.all(
     files.map(async (file, index) => {
       const { createReadStream } = await file;
-      const publicId = `${fileName}-${index}`;
+      const fileName = `${slug}-${index}`;
+
+      const finalPath = `${filesPath}/${fileName}.jpg`;
 
       // Attempting to save file in cloud
-      return new Promise<AssetInterface>((resolve, reject) => {
-        // Create cloudinary stream
-        const cloudinaryStream = cloudinary.v2.uploader.upload_stream(
-          { public_id: publicId },
-          function (error, result) {
-            if (error) {
-              reject(error);
-            }
-
-            if (result) {
-              resolve({
-                publicId: result.public_id,
-                width: result.width,
-                height: result.height,
-                format: result.format,
-                url: result.url,
-                index,
-              });
-            }
-          },
-        );
-
+      return new Promise<string>((resolve, reject) => {
         // Read file into stream.Readable
         const fileStream = createReadStream();
 
-        // An error occurred with the stream
-        fileStream.once('error', (error) => {
-          // Be sure to handle this properly!
-          reject(error);
-        });
-
-        // File is done being read
-        fileStream.once('end', () => {
-          cloudinaryStream.end();
-        });
-
-        // Data is flushed from fileStream in chunks,
-        // this callback will be executed for each chunk
-        fileStream.on('data', (data) => {
-          // Write all file data to the cloud
-          cloudinaryStream.write(data);
+        // Save file to the FS
+        getBufferFromFileStream({
+          stream: fileStream,
+          reject,
+          callback: (buffer) => {
+            sharp(buffer)
+              .jpeg()
+              .toFile(finalPath)
+              .then(() => {
+                resolve(finalPath);
+              })
+              .catch((error) => {
+                reject(error);
+              });
+          },
         });
       });
     }),
