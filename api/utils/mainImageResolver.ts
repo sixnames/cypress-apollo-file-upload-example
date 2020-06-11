@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { Assets, ImageArgsInterface, ImageInterface } from '../types';
-import cloudinary from 'cloudinary';
+// import cloudinary from 'cloudinary';
 
 interface MainImageResolverInterface {
   name: string;
@@ -18,11 +18,7 @@ function mainImageResolver<T extends MainImageResolverInterface>(
         width: width || mainAsset.width,
         alt: name,
         title: name,
-        url: cloudinary.v2.url(mainAsset.publicId, {
-          width,
-          fetch_format: 'auto',
-          quality,
-        }),
+        url: `${quality}`,
       };
     }
 

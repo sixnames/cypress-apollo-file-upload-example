@@ -41,6 +41,7 @@ function getBufferFromFileStream({ stream, callback, reject }: GetBufferFromFile
 
 const storeUploads = async ({ files, slug }: StoreUploadsInterface): Promise<string[]> => {
   const filesPath = `./assets/${slug}`;
+  const filesResolvePath = `/images/${slug}`;
   const exists = fs.existsSync(filesPath);
   if (!exists) {
     await mkdirp(filesPath);
@@ -52,8 +53,9 @@ const storeUploads = async ({ files, slug }: StoreUploadsInterface): Promise<str
       const fileName = `${slug}-${index}`;
 
       const finalPath = `${filesPath}/${fileName}.jpg`;
+      const resolvePath = `${filesResolvePath}/${fileName}.jpg`;
 
-      // Attempting to save file in cloud
+      // Attempting to save file in fs
       return new Promise<string>((resolve, reject) => {
         // Read file into stream.Readable
         const fileStream = createReadStream();
@@ -67,7 +69,7 @@ const storeUploads = async ({ files, slug }: StoreUploadsInterface): Promise<str
               .jpeg()
               .toFile(finalPath)
               .then(() => {
-                resolve(finalPath);
+                resolve(resolvePath);
               })
               .catch((error) => {
                 reject(error);

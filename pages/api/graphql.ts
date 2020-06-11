@@ -3,13 +3,6 @@ import { ApolloServer } from 'apollo-server-micro';
 import typeDefs from '../../api/typeDefs';
 import resolvers from '../../api/resolvers';
 import { DateTimeResolver } from 'graphql-scalars';
-import cloudinary from 'cloudinary';
-
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_KEY,
-  api_secret: process.env.CLOUD_SECRET,
-});
 
 const apolloServer = new ApolloServer({
   typeDefs,
