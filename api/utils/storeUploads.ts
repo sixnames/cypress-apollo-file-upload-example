@@ -8,34 +8,30 @@ export interface StoreUploadsInterface {
   slug: string;
 }
 
-export interface GetBufferFromFileStreamInterface {
-  stream: ReadStream;
-  callback: (buffer: Buffer) => void;
-  reject: (reason: any) => void;
-}
+function getBufferFromFileStream(stream: ReadStream) {
+  return new Promise<Buffer>((resolve, reject) => {
+    // Store file data chunks in this array
+    const chunks: any[] = [];
+    // We can use this variable to store the final data
+    let fileBuffer;
 
-function getBufferFromFileStream({ stream, callback, reject }: GetBufferFromFileStreamInterface) {
-  // Store file data chunks in this array
-  const chunks: any[] = [];
-  // We can use this variable to store the final data
-  let fileBuffer;
+    // An error occurred with the stream
+    stream.once('error', (err) => {
+      reject(err);
+    });
 
-  // An error occurred with the stream
-  stream.once('error', (err) => {
-    reject(err);
-  });
+    // File is done being read
+    stream.once('end', () => {
+      // create the final data Buffer from data chunks;
+      fileBuffer = Buffer.concat(chunks);
+      resolve(fileBuffer);
+    });
 
-  // File is done being read
-  stream.once('end', () => {
-    // create the final data Buffer from data chunks;
-    fileBuffer = Buffer.concat(chunks);
-    callback(fileBuffer);
-  });
-
-  // Data is flushed from fileStream in chunks,
-  // this callback will be executed for each chunk
-  stream.on('data', (chunk) => {
-    chunks.push(chunk); // push data chunk to array
+    // Data is flushed from fileStream in chunks,
+    // this callback will be executed for each chunk
+    stream.on('data', (chunk) => {
+      chunks.push(chunk); // push data chunk to array
+    });
   });
 }
 
@@ -56,26 +52,21 @@ const storeUploads = async ({ files, slug }: StoreUploadsInterface): Promise<str
       const resolvePath = `${filesResolvePath}/${fileName}.jpg`;
 
       // Attempting to save file in fs
-      return new Promise<string>((resolve, reject) => {
+      return new Promise<string>(async (resolve, reject) => {
         // Read file into stream.Readable
         const fileStream = createReadStream();
+        const buffer = await getBufferFromFileStream(fileStream);
 
         // Save file to the FS
-        getBufferFromFileStream({
-          stream: fileStream,
-          reject,
-          callback: (buffer) => {
-            sharp(buffer)
-              .jpeg()
-              .toFile(finalPath)
-              .then(() => {
-                resolve(resolvePath);
-              })
-              .catch((error) => {
-                reject(error);
-              });
-          },
-        });
+        sharp(buffer)
+          .jpeg()
+          .toFile(finalPath)
+          .then(() => {
+            resolve(resolvePath);
+          })
+          .catch((error) => {
+            reject(error);
+          });
       });
     }),
   );
